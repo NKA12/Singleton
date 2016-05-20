@@ -8,8 +8,11 @@ template<typename T>
 class TSSingleton
 {
     private:
-        virtual ~TSSingleton(){kill();}
-
+        virtual ~TSSingleton(){}
+        TSSingleton();
+        TSSingleton(const TSSingleton& other);
+        TSSingleton& operator=(const TSSingleton& other);
+        
         static T & getInstance()
         {
             if(!mInstance)
@@ -20,7 +23,7 @@ class TSSingleton
             }
             return *mInstance ;
         }
-        void kill()
+        static void kill()
         {
             if(mInstance)
             {
@@ -31,9 +34,6 @@ class TSSingleton
     protected:
 
     private:
-        TSSingleton();
-        TSSingleton(const TSSingleton& other);
-        TSSingleton& operator=(const TSSingleton& other);
         static T * mInstance;
         static boost::mutex mMutex;
 };
