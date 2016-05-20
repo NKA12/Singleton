@@ -7,15 +7,16 @@
 template<typename T>
 class TSSingleton
 {
-    private:
-        virtual ~TSSingleton(){kill();}
-
+    TSSingleton(const TSSingleton& other);
+    TSSingleton& operator=(const TSSingleton& other);
+        
+    public:
         static T & getInstance()
         {
             if(!mInstance)
             {
                 boost::mutex::scoped_lock scopedLock(mMutex);
-                if(!mInstance())
+                if(!mInstance
                         mInstance = new T();
             }
             return *mInstance ;
@@ -29,11 +30,9 @@ class TSSingleton
             }
         }
     protected:
-
-    private:
-        TSSingleton();
-        TSSingleton(const TSSingleton& other);
-        TSSingleton& operator=(const TSSingleton& other);
+        TSSingleton(){};
+        virtual ~TSSingleton(){}
+    private:    
         static T * mInstance;
         static boost::mutex mMutex;
 };
