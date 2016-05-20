@@ -12,7 +12,7 @@ class TSSingleton
         TSSingleton();
         TSSingleton(const TSSingleton& other);
         TSSingleton& operator=(const TSSingleton& other);
-        
+    public:    
         static T & getInstance()
         {
             if(!mInstance)
